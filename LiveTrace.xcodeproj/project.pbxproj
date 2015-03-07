@@ -13,6 +13,7 @@
 		0B695A571AAABCC8006F1665 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B695A561AAABCC8006F1665 /* Images.xcassets */; };
 		0B695A5A1AAABCC8006F1665 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B695A581AAABCC8006F1665 /* LaunchScreen.xib */; };
 		0B695A661AAABCC8006F1665 /* LiveTraceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B695A651AAABCC8006F1665 /* LiveTraceTests.swift */; };
+		0B695A711AAAD781006F1665 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B695A701AAAD781006F1665 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 		0B695A5F1AAABCC8006F1665 /* LiveTraceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveTraceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B695A641AAABCC8006F1665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B695A651AAABCC8006F1665 /* LiveTraceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTraceTests.swift; sourceTree = "<group>"; };
+		0B695A6F1AAAD776006F1665 /* LiveTrace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LiveTrace.entitlements; sourceTree = "<group>"; };
+		0B695A701AAAD781006F1665 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B695A711AAAD781006F1665 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +63,7 @@
 		0B695A411AAABCC8006F1665 = {
 			isa = PBXGroup;
 			children = (
+				0B695A701AAAD781006F1665 /* CloudKit.framework */,
 				0B695A4C1AAABCC8006F1665 /* LiveTrace */,
 				0B695A621AAABCC8006F1665 /* LiveTraceTests */,
 				0B695A4B1AAABCC8006F1665 /* Products */,
@@ -77,6 +82,7 @@
 		0B695A4C1AAABCC8006F1665 /* LiveTrace */ = {
 			isa = PBXGroup;
 			children = (
+				0B695A6F1AAAD776006F1665 /* LiveTrace.entitlements */,
 				0B695A4F1AAABCC8006F1665 /* AppDelegate.swift */,
 				0B695A511AAABCC8006F1665 /* ViewController.swift */,
 				0B695A531AAABCC8006F1665 /* Main.storyboard */,
@@ -161,6 +167,12 @@
 				TargetAttributes = {
 					0B695A491AAABCC8006F1665 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 2S3D8J8M3T;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					0B695A5E1AAABCC8006F1665 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -336,9 +348,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiveTrace/LiveTrace.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LiveTrace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -346,9 +362,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiveTrace/LiveTrace.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LiveTrace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -405,6 +425,7 @@
 				0B695A6B1AAABCC8006F1665 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B695A6C1AAABCC8006F1665 /* Build configuration list for PBXNativeTarget "LiveTraceTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +434,7 @@
 				0B695A6E1AAABCC8006F1665 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
