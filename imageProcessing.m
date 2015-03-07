@@ -8,7 +8,4 @@ color = White;
 i = RemoveBackground[
 ColorNegate[
  EdgeDetect[
- Import["/Users/Pradyuman/Documents/LiveTrace/PurdueEngineering.jpg"]]], {"Background", color}]
-
-
-
+ Import["/Users/Pradyuman/Documents/LiveTrace/images/PurdueEngineering.jpg"]]], {"Background", color}]
