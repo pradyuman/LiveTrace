@@ -13,7 +13,6 @@
 		0B695A571AAABCC8006F1665 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B695A561AAABCC8006F1665 /* Images.xcassets */; };
 		0B695A5A1AAABCC8006F1665 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B695A581AAABCC8006F1665 /* LaunchScreen.xib */; };
 		0B695A661AAABCC8006F1665 /* LiveTraceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B695A651AAABCC8006F1665 /* LiveTraceTests.swift */; };
-		0B695A711AAAD781006F1665 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B695A701AAAD781006F1665 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +37,6 @@
 		0B695A641AAABCC8006F1665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B695A651AAABCC8006F1665 /* LiveTraceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTraceTests.swift; sourceTree = "<group>"; };
 		0B695A6F1AAAD776006F1665 /* LiveTrace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LiveTrace.entitlements; sourceTree = "<group>"; };
-		0B695A701AAAD781006F1665 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B695A711AAAD781006F1665 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +60,6 @@
 		0B695A411AAABCC8006F1665 = {
 			isa = PBXGroup;
 			children = (
-				0B695A701AAAD781006F1665 /* CloudKit.framework */,
 				0B695A4C1AAABCC8006F1665 /* LiveTrace */,
 				0B695A621AAABCC8006F1665 /* LiveTraceTests */,
 				0B695A4B1AAABCC8006F1665 /* Products */,
