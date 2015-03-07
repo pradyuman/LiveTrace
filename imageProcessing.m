@@ -1,10 +1,14 @@
 (* ::Package:: *)
 
-(* ::Input:: *)
-(*#!/usr/local/bin/MathematicaScript -script*)
-(**)
+#!/usr/local/bin/MathematicaScript -script
+
+color = White;
+
 (*url = ToExpression[Rest[$ScriptCommandLine]];*)
-(*RemoveBackground[*)
-(*ColorNegate[*)
-(*EdgeDetect[*)
-(*Import["/Users/Pradyuman/Documents/LiveTrace/PurdueEngineering.jpg"]]]]*)
+i = RemoveBackground[
+ColorNegate[
+ EdgeDetect[
+ Import["/Users/Pradyuman/Documents/LiveTrace/PurdueEngineering.jpg"]]], {"Background", color}]
+
+
+
