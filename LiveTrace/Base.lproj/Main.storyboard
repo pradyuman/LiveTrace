@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -27,13 +28,25 @@
                                     <action selector="cameraButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rJ2-GV-yXG"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KOL-hO-oMU">
+                                <rect key="frame" x="0.0" y="40" width="600" height="450"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="XGS-XT-Gv2"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="KOL-hO-oMU" secondAttribute="trailing" constant="-16" id="1Vf-SF-tS0"/>
+                            <constraint firstItem="KOL-hO-oMU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="FpM-j9-Edb"/>
+                            <constraint firstItem="KOL-hO-oMU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="OPk-RA-e2e"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="8VD-Bh-wdZ" secondAttribute="bottom" constant="20" id="PhR-kk-JZv"/>
                             <constraint firstAttribute="centerX" secondItem="8VD-Bh-wdZ" secondAttribute="centerX" id="o0t-eL-a3G"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="myImageView" destination="KOL-hO-oMU" id="z2p-t2-O3I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
