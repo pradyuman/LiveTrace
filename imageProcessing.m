@@ -1,4 +1,10 @@
 (* ::Package:: *)
 
 (* ::Input:: *)
-(*Print[RemoveBackground[ColorNegate[EdgeDetect[Import["PurdueEngineering.jpg"]]]]]*)
+(*#!/usr/local/bin/MathematicaScript -script*)
+(**)
+(*url = ToExpression[Rest[$ScriptCommandLine]];*)
+(*RemoveBackground[*)
+(*ColorNegate[*)
+(*EdgeDetect[*)
+(*Import["/Users/Pradyuman/Documents/LiveTrace/PurdueEngineering.jpg"]]]]*)
