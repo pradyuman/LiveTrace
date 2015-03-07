@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -20,6 +20,20 @@ class ViewController: UIViewController {
       // Dispose of any resources that can be recreated.
    }
 
+   @IBAction func cameraButton(sender: AnyObject) {
+      let imagePicker = UIImagePickerController()
+      if UIImagePickerController.isSourceTypeAvailable(.Camera){
+         imagePicker.sourceType = .Camera
+      }
+      else{
+         imagePicker.sourceType = .PhotoLibrary
+      }
+      
+      //Self delegate
+      imagePicker.delegate = self
+      
+      presentViewController(imagePicker, animated: true, completion: nil) 
+   }
 
 }
 
