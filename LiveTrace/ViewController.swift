@@ -22,6 +22,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       // Do any additional setup after loading the view, typically from a nib.
    }
    
+   //Status update for testing
+   func updateStatus(message: String) {
+      if let existingStatus = statusView.text {
+         statusView.text = existingStatus + "\n" + message
+      }
+      else {
+         statusView.text = message
+      }
+   }
+   
    //Open camera when button is pressed
    @IBAction func cameraButton(sender: AnyObject) {
       let imagePicker = UIImagePickerController()
@@ -60,6 +70,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       
    }
    
+   //Saves the image to the user's disk (preparing for upload)
    func saveToDisk(image: UIImage){
       //Getting user files from environment
       let userFiles = NSFileManager.defaultManager()
