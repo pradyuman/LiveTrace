@@ -24,12 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
    
    //Status update for testing
    func updateStatus(message: String) {
-      if let existingStatus = statusView.text {
-         statusView.text = existingStatus + "\n" + message
-      }
-      else {
-         statusView.text = message
-      }
+         println(existingStatus + "\n" + message)
    }
    
    //Open camera when button is pressed
@@ -61,11 +56,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       //Dismiss Camera
       dismissViewControllerAnimated(true, completion: nil)
       
-      if takenImage != nil {
+      if let theImage = takenImage {
          //Display image on the iPhone after it is taken
          myImageView.image = takenImage
          //Save image to iPhone
-         saveToDisk(takenImage);
+         saveToDisk(theImage);
       }
       
    }
@@ -75,7 +70,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       //Getting user files from environment
       let userFiles = NSFileManager.defaultManager()
       //Getting URLs for the files in user's iCloud document folder
-      let documentURLs = userFiles.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask) as [NSURL]
+      let documentURLs = userFiles.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask) as [NSURL]
       //Getting valid path to save image
       if let firstpath = documentURLs.first{
          let fileURL = firstpath.URLByAppendingPathComponent("image.jpg", isDirectory: false)
@@ -88,6 +83,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             //For testing
             updateStatus("Wrote picture to file \(photoPath)")
          }
+      }
+   }
+   
+   //iCLoud upload functionality
+   func upload(sender: AnyObject) {
+      if let imageURL = localPhotoURL {
+         //Creating a new thread for getting the iCloud URL to keep the app efficient
+         dispatch_async(dispatch_queue_create("com.asuna.LiveTrace.cloud", nil), {
+            let files = NSFileManager.defaultManager()
+            let cloudURL = files.URLForUbiquityContainerIdentifier("iCLoud.com.asuna.LiveTrace")
+            dispatch_async(dispatch_get_main_queue(), {
+               self.updateStatus("Got iCloud URL: \(cloudURL)")
+               self.uploadFileToiCloud(imageURL, cloudURL: cloudURL!)
+            })
+         })
+      }
+      else {
+         updateStatus("ERROR:No local file to upload.")
       }
    }
 }
