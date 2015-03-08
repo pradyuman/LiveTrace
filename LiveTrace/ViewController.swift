@@ -74,6 +74,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          //Write to file
          if let photoPath = fileURL.path {
             photo_fJPG.writeToFile(photoPath, atomically: true)
+            //For testing
             updateStatus("Wrote picture to file \(photoPath)")
          }
       }
