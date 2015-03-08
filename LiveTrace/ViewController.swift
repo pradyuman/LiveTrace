@@ -106,7 +106,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                }
                //upload to iCloud
                dispatch_async(dispatch_get_main_queue(), {
-                  self.println("Got iCloud URL: \(cloudURL!)")
+                  println("Got iCloud URL: \(cloudURL!)")
                   self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
                })
             } else {
@@ -125,7 +125,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
    func uploadFileToCloud(localURL: NSURL, cloudURL: NSURL) {
       let files = NSFileManager.defaultManager()
       var error : NSError?
-      var destinationURL = cloudURL.URLByAppendingPathComponent("image.jpg", isDIrectory: false)
+      var destinationURL = cloudURL.URLByAppendingPathComponent("image.jpg", isDirectory: false)
 
       //Telling the environment to upload to cloud
       //Environment will take care of when to upload - may not be instantaneous
