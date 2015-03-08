@@ -137,7 +137,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
          })
       } else {
-         println("ERROR: No local file to upload.")
+         println("ERROR: iCloud is unavaliable.")
       }
    }
    
