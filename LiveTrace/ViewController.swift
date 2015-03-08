@@ -104,13 +104,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
    }
    
-   
    //Tell environment to upload to iCloud
    func uploadFileToCloud(localURL: NSURL, cloudURL: NSURL) {
       let files = NSFileManager.defaultManager()
       
       var error : NSError?
       
+      //Telling the environment to upload to cloud
+      //Environment will take care of when to upload - may not be instantaneous
       files.setUbiquitous(true, itemAtURL: localURL, destinationURL: cloudURL, error: &error)
       updateStatus("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
    }
