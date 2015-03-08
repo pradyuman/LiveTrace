@@ -24,7 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
    
    //Status update for testing
    func updateStatus(message: String) {
-         println(existingStatus + "\n" + message)
+         println(message)
    }
    
    //Open camera when button is pressed
@@ -112,7 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       var error : NSError?
       
       files.setUbiquitous(true, itemAtURL: localURL, destinationURL: cloudURL, error: &error)
-      updatesStatus("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
+      updateStatus("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
    }
 }
 
