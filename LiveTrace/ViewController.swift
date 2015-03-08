@@ -77,12 +77,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             photo_fJPG.writeToFile(photoPath, atomically: true)
             //For testing
             println("Wrote picture to file \(photoPath)")
+            upload()
          }
       }
    }
    
    //iCloud upload functionality
-   func upload(sender: AnyObject) {
+   func upload() {
       if let imageURL = localPhotoURL {
          //Checking for iCloud connection
          if let token = NSFileManager.defaultManager().ubiquityIdentityToken {
