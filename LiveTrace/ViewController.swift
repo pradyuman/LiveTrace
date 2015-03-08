@@ -114,7 +114,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                      println("Filename part is \(filename)")
                      
                      //destinationURL will need to include the filename (path with filename)
-                     var destinationURL = cloudURL.URLByAppendingPathComponent("image.jpg", isDirectory: false)
+                     var destinationURL = cloudURL.URLByAppendingPathComponent(filename, isDirectory: false)
                      
                      //Telling the environment to upload to cloud
                      //Environment will take care of when to upload - may not be instantaneous
