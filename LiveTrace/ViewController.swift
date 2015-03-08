@@ -71,7 +71,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          let fileURL = firstpath.URLByAppendingPathComponent(createFilename("jpg"), isDirectory: false)
          localPhotoURL = fileURL
          //Photo formatting
-         let photo_fJPG = UIImageJPEGRepresentation(image, 1.0)
+         let photo_fJPG = UIImageJPEGRepresentation(image, 0.5)
          //Write to file
          if let photoPath = fileURL.path {
             photo_fJPG.writeToFile(photoPath, atomically: true)
