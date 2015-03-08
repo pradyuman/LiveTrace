@@ -86,7 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
    }
    
-   //iCLoud upload functionality
+   //iCloud upload functionality
    func upload(sender: AnyObject) {
       if let imageURL = localPhotoURL {
          //Creating a new thread for getting the iCloud URL to keep the app efficient
@@ -95,13 +95,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let cloudURL = files.URLForUbiquityContainerIdentifier("iCLoud.com.asuna.LiveTrace")
             dispatch_async(dispatch_get_main_queue(), {
                self.updateStatus("Got iCloud URL: \(cloudURL)")
-               self.uploadFileToiCloud(imageURL, cloudURL: cloudURL!)
+               self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
             })
          })
       }
       else {
          updateStatus("ERROR:No local file to upload.")
       }
+   }
+   
+   
+   //Tell environment to upload to iCloud
+   func uploadFileToCloud(localURL: NSURL, cloudURL: NSURL) {
+      let files = NSFileManager.defaultManager()
+      
+      var error : NSError?
+      
+      files.setUbiquitous(true, itemAtURL: localURL, destinationURL: cloudURL, error: &error)
+      updatesStatus("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
    }
 }
 
