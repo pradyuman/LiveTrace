@@ -92,7 +92,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          //Creating a new thread for getting the iCloud URL to keep the app efficient
          dispatch_async(dispatch_queue_create("com.asuna.LiveTrace.cloud", nil), {
             let files = NSFileManager.defaultManager()
-            let cloudURL = files.URLForUbiquityContainerIdentifier("iCLoud.com.asuna.LiveTrace")
+            let cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace")
             dispatch_async(dispatch_get_main_queue(), {
                self.updateStatus("Got iCloud URL: \(cloudURL)")
                self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
