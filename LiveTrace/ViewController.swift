@@ -68,7 +68,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       let documentURLs = userFiles.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask) as [NSURL]
       //Getting valid path to save image
       if let firstpath = documentURLs.first{
-         let fileURL = firstpath.URLByAppendingPathComponent("image.jpg", isDirectory: false)
+         let fileURL = firstpath.URLByAppendingPathComponent(createFilename("png"), isDirectory: false)
          localPhotoURL = fileURL
          //Photo formatting
          let photo_fJPG = UIImageJPEGRepresentation(image, 1.0)
