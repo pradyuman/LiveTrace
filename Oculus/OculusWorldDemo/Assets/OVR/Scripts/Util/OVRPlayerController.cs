@@ -96,6 +96,7 @@ public class OVRPlayerController : MonoBehaviour
 
 	void Awake()
 	{
+		Debug.Log ("StartedWakeMove");
 		Controller = gameObject.GetComponent<CharacterController>();
 
 		if(Controller == null)
@@ -143,7 +144,7 @@ public class OVRPlayerController : MonoBehaviour
 			CameraController.transform.localRotation = InitialPose.Value.orientation;
 			InitialPose = null;
 		}
-
+		
 		UpdateMovement();
 
 		Vector3 moveDirection = Vector3.zero;
@@ -153,6 +154,7 @@ public class OVRPlayerController : MonoBehaviour
 		MoveThrottle.x /= motorDamp;
 		MoveThrottle.y = (MoveThrottle.y > 0.0f) ? (MoveThrottle.y / motorDamp) : MoveThrottle.y;
 		MoveThrottle.z /= motorDamp;
+		
 
 		moveDirection += MoveThrottle * SimulationRate * Time.deltaTime;
 
@@ -175,7 +177,8 @@ public class OVRPlayerController : MonoBehaviour
 
 		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
-		// Move contoller
+		// Move contoller;
+		Debug.Log (moveDirection);
 		Controller.Move(moveDirection);
 
 		Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
@@ -186,9 +189,11 @@ public class OVRPlayerController : MonoBehaviour
 
 	public virtual void UpdateMovement()
 	{
-		if (HaltUpdateMovement)
+		if (HaltUpdateMovement) {
+			Debug.Log ("HaltUpdateMovement");
 			return;
-
+		}
+		
 		bool moveForward = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 		bool moveLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 		bool moveRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
@@ -215,8 +220,8 @@ public class OVRPlayerController : MonoBehaviour
 			MoveScale = 0.70710678f;
 
 		// No positional movement if we are in the air
-		if (!Controller.isGrounded)
-			MoveScale = 0.0f;
+		//if (!Controller.isGrounded)
+		//	MoveScale = 0.0f;
 
 		MoveScale *= SimulationRate * Time.deltaTime;
 
@@ -232,8 +237,9 @@ public class OVRPlayerController : MonoBehaviour
 		ortEuler.z = ortEuler.x = 0f;
 		ort = Quaternion.Euler(ortEuler);
 
-		if (moveForward)
+		if (moveForward) {
 			MoveThrottle += ort * (transform.lossyScale.z * moveInfluence * Vector3.forward);
+		}
 		if (moveBack)
 			MoveThrottle += ort * (transform.lossyScale.z * moveInfluence * BackAndSideDampen * Vector3.back);
 		if (moveLeft)
@@ -269,7 +275,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (!SkipMouseRotation)
 			euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
 
-		moveInfluence = SimulationRate * Time.deltaTime * Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
+		moveInfluence = SimulationRate * Time.deltaTime * Acceleration * 0.1f * MoveScale * MoveScaleMultiplier * 20;
 
 #if !UNITY_ANDROID // LeftTrigger not avail on Android game pad
 		moveInfluence *= 1.0f + OVRGamepadController.GPC_GetAxis(OVRGamepadController.Axis.LeftTrigger);
