@@ -22,11 +22,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       // Do any additional setup after loading the view, typically from a nib.
    }
    
-   //Status update for testing
-   func updateStatus(message: String) {
-         println(message)
-   }
-   
    //Open camera when button is pressed
    @IBAction func cameraButton(sender: AnyObject) {
       let imagePicker = UIImagePickerController()
@@ -81,7 +76,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          if let photoPath = fileURL.path {
             photo_fJPG.writeToFile(photoPath, atomically: true)
             //For testing
-            updateStatus("Wrote picture to file \(photoPath)")
+            println("Wrote picture to file \(photoPath)")
          }
       }
    }
@@ -89,18 +84,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
    //iCloud upload functionality
    func upload(sender: AnyObject) {
       if let imageURL = localPhotoURL {
+         //Checking for iCloud connection
+         if let token = NSFileManager.defaultManager().ubiquityIdentityToken {
+            println("iCloud connection is active with token \(token)")
+         } else {
+            println("iCloud is not available")
+         }
+         
          //Creating a new thread for getting the iCloud URL to keep the app efficient
          dispatch_async(dispatch_queue_create("com.asuna.LiveTrace.cloud", nil), {
             let files = NSFileManager.defaultManager()
             let cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace")
             dispatch_async(dispatch_get_main_queue(), {
-               self.updateStatus("Got iCloud URL: \(cloudURL)")
+               self.println("Got iCloud URL: \(cloudURL)")
                self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
             })
          })
       }
       else {
-         updateStatus("ERROR:No local file to upload.")
+         println("ERROR:No local file to upload.")
       }
    }
    
@@ -113,7 +115,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       //Telling the environment to upload to cloud
       //Environment will take care of when to upload - may not be instantaneous
       files.setUbiquitous(true, itemAtURL: localURL, destinationURL: cloudURL, error: &error)
-      updateStatus("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
+      println("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
    }
 }
 
