@@ -77,7 +77,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             photo_fJPG.writeToFile(photoPath, atomically: true)
             //For testing
             println("Wrote picture to file \(photoPath)")
-            upload()
+            upload(fileURL)
          }
       }
    }
@@ -99,7 +99,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                var cloudURLWithDocuments = cloudURL.URLByAppendingPathComponent("Documents", isDirectory: true)
                if !files.fileExistsAtPath(cloudURLWithDocuments.path!) {
                   var error: NSError?
-                  files.createDirectoryAtURL(cloudURLWithDocuments!, withIntermediateDirectories: false, attributes: nil, error: &error)
+                  files.createDirectoryAtURL(cloudURLWithDocuments, withIntermediateDirectories: false, attributes: nil, error: &error)
                   if let theError = error {
                      println("ERROR: Could not create Documents directory in iCloud for LiveTrace: \(theError.localizedDescription)")
                   }
@@ -110,7 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                   var error : NSError?
                   if let pathComponents = fileURL.pathComponents {
                      let pathComponentCount = pathComponents.count
-                     let filename: String = pathComponents[pathComponentsCount - 1] as String
+                     let filename: String = pathComponents[pathComponentCount - 1] as String
                      println("Filename part is \(filename)")
                      
                      //destinationURL will need to include the filename (path with filename)
@@ -118,10 +118,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                      
                      //Telling the environment to upload to cloud
                      //Environment will take care of when to upload - may not be instantaneous
-                     println("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
+                     println("Set the ubiquitous flag for \(fileURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
                      
                      //If upload was successful, print success to console.
-                     if files.setUbiquitous(true, itemAtURL: localURL, destinationURL: destinationURL, error: &error) {
+                     if files.setUbiquitous(true, itemAtURL: fileURL, destinationURL: destinationURL, error: &error) {
                         println("Uploaded successfully!")
                         //Else :(
                      } else {
@@ -139,5 +139,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       } else {
          println("ERROR: No local file to upload.")
       }
+   }
+   
+   func createFilename(ext: String) -> String {
+      let timestamp = NSDate().timeIntervalSince1970
+      return "File\(timestamp).\(ext)"
    }
 }
