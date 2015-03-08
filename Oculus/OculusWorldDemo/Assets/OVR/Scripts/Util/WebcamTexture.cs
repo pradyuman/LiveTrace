@@ -32,9 +32,6 @@ public class WebcamTexture : MonoBehaviour {
 			}
 		}
 
-		myCam.Play ();
-
-
 	
 	}
 	
