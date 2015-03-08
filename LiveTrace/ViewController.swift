@@ -48,11 +48,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       
       if takenImage != nil {
          myImageView.image = takenImage
+      
       }
       
-      
    }
-   
    
 }
 
