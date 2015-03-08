@@ -94,11 +94,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          //Creating a new thread for getting the iCloud URL to keep the app efficient
          dispatch_async(dispatch_queue_create("com.asuna.LiveTrace.cloud", nil), {
             let files = NSFileManager.defaultManager()
-            let cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace")
-            dispatch_async(dispatch_get_main_queue(), {
-               self.println("Got iCloud URL: \(cloudURL)")
-               self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
-            })
+            //URL for local filesystem
+            var cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace")
+            
+            if cloudURL != nil {
+               //Update URL by appending '/Documents'
+               cloudURL = cloudURL?.URLByAppendingPathComponent("Documents", isDirectory: true)
+               if !files.fileExistsAtPath(cloudURL!.path!) {
+                  var error: NSError?
+                  files.createDirectoryAtURL(cloudURL!, withIntermediateDirectories: false, attributes: nil, error: &error)
+               }
+               dispatch_async(dispatch_get_main_queue(), {
+                  self.println("Got iCloud URL: \(cloudURL!)")
+                  self.uploadFileToiCloud(imageURL, cloudURL: cloudURL!)
+               })
+            } else {
+               dispatch_async(dispatch_get_main_queue(), {
+                  println("ERROR: Failed to get ubiquity URL")
+               })
+            }
          })
       }
       else {
