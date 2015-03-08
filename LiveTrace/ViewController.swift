@@ -12,6 +12,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
    @IBOutlet weak var myImageView: UIImageView!
    
+   //Local photo URL
+   var localPhotoURL: NSURL?
+   //Image that the user takes
    var takenImage: UIImage?
    
    override func viewDidLoad() {
@@ -65,7 +68,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       //Getting valid path to save image
       if let firstpath = documentURLs.first{
          let fileURL = firstpath.URLByAppendingPathComponent("image.jpg", isDirectory: false)
-         localPhotoURL - fileURL
+         localPhotoURL = fileURL
          //Photo formatting
          let photo_fJPG = UIImageJPEGRepresentation(image, 1.0)
          //Write to file
