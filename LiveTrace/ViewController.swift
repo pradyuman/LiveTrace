@@ -68,7 +68,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       let documentURLs = userFiles.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask) as [NSURL]
       //Getting valid path to save image
       if let firstpath = documentURLs.first{
-         let fileURL = firstpath.URLByAppendingPathComponent(createFilename("png"), isDirectory: false)
+         let fileURL = firstpath.URLByAppendingPathComponent(createFilename("jpg"), isDirectory: false)
          localPhotoURL = fileURL
          //Photo formatting
          let photo_fJPG = UIImageJPEGRepresentation(image, 1.0)
@@ -114,7 +114,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                      println("Filename part is \(filename)")
                      
                      //destinationURL will need to include the filename (path with filename)
-                     var destinationURL = cloudURL.URLByAppendingPathComponent(filename, isDirectory: false)
+                     var destinationURL = cloudURLWithDOcuments.URLByAppendingPathComponent(filename, isDirectory: false)
                      
                      //Telling the environment to upload to cloud
                      //Environment will take care of when to upload - may not be instantaneous
