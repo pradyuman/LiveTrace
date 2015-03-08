@@ -83,62 +83,61 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
    }
    
    //iCloud upload functionality
-   func upload() {
-      if let imageURL = localPhotoURL {
-         //Checking for iCloud connection
-         if let token = NSFileManager.defaultManager().ubiquityIdentityToken {
-            println("iCloud connection is active with token \(token)")
-         } else {
-            println("iCloud is not available")
-         }
-         
+   func upload(fileURL: NSURL) {
+      //Checking for iCloud connection
+      if let token = NSFileManager.defaultManager().ubiquityIdentityToken {
+         println("iCloud connection is active with token \(token)")
+      
          //Creating a new thread for getting the iCloud URL to keep the app efficient
          dispatch_async(dispatch_queue_create("com.asuna.LiveTrace.cloud", nil), {
+            //FIle Manager
             let files = NSFileManager.defaultManager()
-            //URL for local filesystem
-            var cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace")
             
-            if cloudURL != nil {
+            //Get URL of the iCLoud drive
+            if let cloudURL = files.URLForUbiquityContainerIdentifier("iCloud.com.asuna.LiveTrace"){
                //Update URL by appending '/Documents'
-               cloudURL = cloudURL?.URLByAppendingPathComponent("Documents", isDirectory: true)
-               if !files.fileExistsAtPath(cloudURL!.path!) {
+               var cloudURLWithDocuments = cloudURL.URLByAppendingPathComponent("Documents", isDirectory: true)
+               if !files.fileExistsAtPath(cloudURLWithDocuments.path!) {
                   var error: NSError?
-                  files.createDirectoryAtURL(cloudURL!, withIntermediateDirectories: false, attributes: nil, error: &error)
+                  files.createDirectoryAtURL(cloudURLWithDocuments!, withIntermediateDirectories: false, attributes: nil, error: &error)
+                  if let theError = error {
+                     println("ERROR: Could not create Documents directory in iCloud for LiveTrace: \(theError.localizedDescription)")
+                  }
                }
                //upload to iCloud
                dispatch_async(dispatch_get_main_queue(), {
-                  println("Got iCloud URL: \(cloudURL!)")
-                  self.uploadFileToCloud(imageURL, cloudURL: cloudURL!)
+                  //Going to call "setUbiquitous" on the file - this will upload it to iCloud
+                  var error : NSError?
+                  if let pathComponents = fileURL.pathComponents {
+                     let pathComponentCount = pathComponents.count
+                     let filename: String = pathComponents[pathComponentsCount - 1] as String
+                     println("Filename part is \(filename)")
+                     
+                     //destinationURL will need to include the filename (path with filename)
+                     var destinationURL = cloudURL.URLByAppendingPathComponent("image.jpg", isDirectory: false)
+                     
+                     //Telling the environment to upload to cloud
+                     //Environment will take care of when to upload - may not be instantaneous
+                     println("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
+                     
+                     //If upload was successful, print success to console.
+                     if files.setUbiquitous(true, itemAtURL: localURL, destinationURL: destinationURL, error: &error) {
+                        println("Uploaded successfully!")
+                        //Else :(
+                     } else {
+                        if let theError = error {
+                           println("Upload Failed. ERROR: \(theError.localizedDescription)")
+                     
+                        }
+                     }
+                  }
                })
             } else {
-               dispatch_async(dispatch_get_main_queue(), {
                   println("ERROR: Failed to get ubiquity URL")
-               })
             }
          })
-      }
-      else {
-         println("ERROR:No local file to upload.")
-      }
-   }
-   
-   //Tell environment to upload to iCloud
-   func uploadFileToCloud(localURL: NSURL, cloudURL: NSURL) {
-      let files = NSFileManager.defaultManager()
-      var error : NSError?
-      var destinationURL = cloudURL.URLByAppendingPathComponent("image.jpg", isDirectory: false)
-
-      //Telling the environment to upload to cloud
-      //Environment will take care of when to upload - may not be instantaneous
-      println("Set the ubiquitous flag for \(localURL). Will deploy to cloud as soon as possible (at \(cloudURL)).")
-      
-      //If upload was successful, print success to console.
-      if files.setUbiquitous(true, itemAtURL: localURL, destinationURL: destinationURL, error: &error) {
-         println("Uploaded successfully!")
-      //Else :(
       } else {
-         println("Upload Failed. ERROR: \(error?)")
+         println("ERROR: No local file to upload.")
       }
    }
 }
-
