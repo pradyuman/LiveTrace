@@ -108,7 +108,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                dispatch_async(dispatch_get_main_queue(), {
                   //Going to call "setUbiquitous" on the file - this will upload it to iCloud
                   var error : NSError?
-                  if let pathComponents = fileURL.pathComponents {
+                  let pathComponents = fileURL.pathComponents {
                      let pathComponentCount = pathComponents.count
                      let filename: String = pathComponents[pathComponentCount - 1] as String
                      println("Filename part is \(filename)")
@@ -130,7 +130,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                      
                         }
                      }
-                  }
+                  
                })
             } else {
                   println("ERROR: Failed to get ubiquity URL")
