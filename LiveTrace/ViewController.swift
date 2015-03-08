@@ -57,5 +57,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       
    }
    
+   func saveToDisk(image: UIImage){
+      //Getting user files from environment
+      let userFiles = NSFileManager.defaultManager()
+      //Getting URLs for the files in user's iCloud document folder
+      let documentURLs = userFiles.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask) as [NSURL]
+      //Getting valid path to save image
+      if let firstpath = documentURLs.first{
+         let fileURL = firstpath.URLByAppendingPathComponent("image.jpg", isDirectory: false)
+         localPhotoURL - fileURL
+         //Photo formatting
+         let photo_fJPG = UIImageJPEGRepresentation(image, 1.0)
+         //Write to file
+         if let photoPath = fileURL.path {
+            photo_fJPG.writeToFile(photoPath, atomically: true)
+            updateStatus("Wrote picture to file \(photoPath)")
+         }
+      }
+   }
 }
 
